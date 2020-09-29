@@ -1,0 +1,96 @@
+﻿Category,Description,Check
+"Run etcd  / Master as a multi-node (odd numbers, atleast 3) cluster in production","A multi-master setup protects against a wide range of failure modes, from a loss of single master / etcd node. By providing redundancy, a multi-master cluster serves a highly available system for your end users.
+
+https://kubernetes.io/docs/tasks/administer-cluster/highly-available-master/",checked
+Each Master / Etcd  nodes must be deployed on separate hardware machines. ,"The idea behind replication is to run multiple copies of a process so that if one fails, another one can pick up the job.
+Each Master / Etcd nodes must be replicated on separate hardware machines running on separate hosts. 
+
+https://kubernetes.io/docs/tasks/administer-cluster/highly-available-master/",checked
+Use OpenID (OIDC) tokens as a user authentication strategy.  ,"Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to authenticate API requests through authentication plugins. 
+https://kubernetes.io/docs/reference/access-authn-authz/authentication/",checked
+Use ServiceAccount tokens are for applications and controllers only.  ,"Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within your organization.
+RBAC authorization uses the rbac.authorization.k8s.io API group to drive authorization decisions, allowing you to dynamically configure policies through the Kubernetes API.
+
+https://kubernetes.io/docs/reference/access-authn-authz/rbac/",checked
+Create service accounts wherever applicable.  ,"Role-based access control (RBAC) is a method of regulating access to computer or network resources based on the roles of individual users within your organization.
+RBAC authorization uses the rbac.authorization.k8s.io API group to drive authorization decisions, allowing you to dynamically configure policies through the Kubernetes API.
+
+https://kubernetes.io/docs/reference/access-authn-authz/rbac/",checked
+RBAC policies are set to the least amount of privileges necessary ,"Pod Security Policies enable fine-grained authorization of pod creation and updates.
+https://kubernetes.io/docs/reference/access-authn-authz/rbac/",checked
+Enable Pod Security Policies ,"Pod security policy control is implemented as an optional (but recommended) admission controller. PodSecurityPolicies are enforced by enabling the admission controller, but doing so without authorizing any policies will prevent any pods from being created in the cluster.
+
+https://kubernetes.io/docs/concepts/policy/pod-security-policy/#:~:text=Enabling%20Pod%20Security%20Policies,being%20created%20in%20the%20cluster.",checked
+Disable privileged containers ,"The Restricted policy is aimed at enforcing current Pod hardening best practices, at the expense of some compatibility. It is targeted at operators and developers of security-critical applications, as well as lower-trust users.
+
+https://kubernetes.io/docs/concepts/security/pod-security-standards/",checked
+Use a read-only filesystem in containers ,"Another security best practice for Kubernetes is to require containers to run with a read-only file system. This is useful because it helps to enforce an immutable infrastructure strategy, since a container whose file system can’t be changed will have to be replaced in order to make changes. This mitigates some of the risks of malicious processes storing or manipulating data inside a container.
+
+https://resources.whitesourcesoftware.com/blog-whitesource/kubernetes-pod-security-policy",checked
+Run containers as non-root users ,"The Docker containers by default run with the root privilege and so does the application that runs inside the container. This is another major concern from the security perspective because hackers can gain root access to the Docker host by hacking the application running inside the container.
+
+https://www.thegeekdiary.com/run-docker-as-a-non-root-user/",checked
+Enable Network policies to implement secured isolation.,"Prevents unauthorized access, improves security, segregates namespaces.  
+
+https://kubernetes.io/docs/tasks/administer-cluster/network-policy-provider/calico-network-policy/",checked
+"Monitor Nodes, Pods, Network and cluster health using dashboards. ","Deploy Prometheus server, metrics exporters, setup kube-state-metrics, pull, scrape and collect metrics, configure alerts with Alertmanager and dashboards with Grafana.
+
+https://sysdig.com/blog/kubernetes-monitoring-prometheus/",checked
+Deploy Prometheus and Grafana to enable monitoring capabilities with data persistence,"Deploy Prometheus server, metrics exporters, setup kube-state-metrics, pull, scrape and collect metrics, configure alerts with Alertmanager and dashboards with Grafana.
+https://www.ibm.com/support/knowledgecenter/SSBS6K_2.1.0.3/featured_applications/deploy_monitoring.html",checked
+Collect and store selected list of metrics to monitor ,"Monitoring metrics and runtime characteristics of an application server is essential to ensure the adequate functioning of the applications running on that server, as well as to prevent or resolve potential issues in a timely manner. 
+https://medium.com/logistimo-engineering-blog/tomcat-jvm-metrics-monitoring-using-prometheus-in-kubernetes-c313075af727",checked
+Tune Prometheus and Grafana servers based on retention period and amount of metrics,"The parameter for the frequency to remove old data. The default value is 24 hours (24h).
+https://www.ibm.com/support/knowledgecenter/SSBS6K_2.1.0.3/featured_applications/deploy_monitoring.html",checked
+Implement alerting using prometheus rules ,"You can use the Kubernetes custom resource, PrometheusRule, to manage alert rules.
+https://www.ibm.com/support/knowledgecenter/SSBS6K_2.1.0.3/featured_applications/deploy_monitoring.html",checked
+Configure Centralized logging for the cluster,"Elastic Cloud on Kubernetes simplifies setup, upgrades, snapshots, scaling, high availability, security, and more for running Elasticsearch and Kibana in Kubernetes for one or many use cases.
+
+https://www.elastic.co/elastic-cloud-kubernetes",checked
+Implement retention and archival strategy for logs ,"Decide and implement retention and purge policy.
+
+https://kubernetes.io/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/",checked
+Collect logs from all nodes and pods,"Collect the data from every node, every pod.
+https://kubernetes.io/docs/tasks/debug-application-cluster/logging-elasticsearch-kibana/",checked
+Prefer a daemon on each node to collect the logs instead of sidecars ,"Use Filebeat to collect the data and send it to ELK stack
+
+https://www.elastic.co/guide/en/beats/filebeat/master/running-on-kubernetes.html",checked
+Vulnerability check for image with kubernetes,"Container images contain OS, runtime, and application (everything but the Linux kernel basically). If a container is breached, there is not much in the way preventing further containers from being breached unless you have SELinux, limit kernel capabilities, run as non-privileged user, and follow many other best practices. 
+
+https://www.ibm.com/support/knowledgecenter/en/SSFC4F_1.1.0/getting_started/components.html#vulnerability",checked
+Configure the Horizontal Pod Autoscaler  (HPA),"The Horizontal Pod Autoscaler automatically scales the number of Pods in a replication controller, deployment, replica set or stateful set based on observed CPU utilization (or, with custom metrics support, on some other application-provided metrics). Note that Horizontal Pod Autoscaling does not apply to objects that can't be scaled, for example, DaemonSets.
+
+https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",checked
+Avoid Configuring vertical pod autoscaler since its in beta.,"Vertical Pod autoscaling frees you from having to think about what values to specify for a container's CPU and memory requests. The autoscaler can recommend values for CPU and memory requests and limits, or it can automatically update the values.
+
+https://cloud.google.com/kubernetes-engine/docs/concepts/verticalpodautoscaler",
+Implement Periodic Registry clean up procedures ,"Image registry stores build artefacts.  Needs credentials for CI to push and for cluster to pull images.  It Keeps versioned artefacts available. It would required regular clean up to maintain storage space for new builds. 
+
+https://medium.com/ibm-cloud-paks-help-and-guidance-from-ibm-cloud/optimize-docker-private-registry-storage-by-removing-unused-docker-tags-41d057ca7523",checked
+Use persistence storage for maintaining Application logs and data,"No one ever has a stateless app. So you may need to stores the persistent state of your application beyond the pod's lifetime.  
+
+https://kubernetes.io/docs/concepts/storage/persistent-volumes/",checked
+Set Pod CPU request to 1 CPU or below ,"Limits and requests for CPU resources are measured in cpu units. One cpu, in Kubernetes, is equivalent to 1 vCPU/Core for cloud providers and 1 hyperthread on bare-metal Intel processors.
+
+https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",checked
+Define CPU and memory limits ,"When you specify the resource request for Containers in a Pod, the scheduler uses this information to decide which node to place the Pod on. When you specify a resource limit for a Container, the kubelet enforces those limits so that the running container is not allowed to use more of that resource than the limit you set. 
+
+https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",checked
+"Use namespaces for better management, allocation, monitoring ","Namespaces are a way to divide cluster resources between multiple users
+
+https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/#:~:text=Namespaces%20are%20intended%20for%20use,across%20multiple%20teams%2C%20or%20projects.&text=Namespaces%20are%20a%20way%20to,access%20control%20policies%20by%20default.",checked
+Namespaces should have LimitRange,"Configure default memory requests and limits for a namespace. If a Container is created in a namespace that has a default memory limit, and the Container does not specify its own memory limit, then the Container is assigned the default memory limit.
+
+https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/",checked
+Namespaces should have ResourceQuotas,"Configure default memory requests and limits for a namespace. If a Container is created in a namespace that has a default memory limit, and the Container does not specify its own memory limit, then the Container is assigned the default memory limit.
+
+https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/",checked
+Define Pods per core in Kubelet Configuration,"Number of Pods per core that can run on this Kubelet. The total number of Pods on this Kubelet cannot exceed `--max-pods`, so `--max-pods` will be used if this calculation results in a larger number of Pods allowed on the Kubelet.
+
+https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/",checked
+Define MaxPods in Kubelet Configurations,"Number of Pods that can run on this Kubelet.
+
+https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/",checked
+Periodic etcd Backups ,"etcd supports restoring from snapshots that are taken from an etcd process of the major.minor version. Restoring a version from a different patch version of etcd also is supported. A restore operation is employed to recover the data of a failed cluster.
+
+https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/",checked

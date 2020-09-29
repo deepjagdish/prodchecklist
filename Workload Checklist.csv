@@ -1,0 +1,103 @@
+﻿Category,Description,Check
+"Tests, integrates, builds and deposits container artefact to registry.","A pipeline is concept when you have a number of scripts that need to be executed in a certain order to achieve a common goal. For example, in Jenkins, a pipeline may consist of one or more stages that must all complete for a build to be successful. Using stages helps visualize the entire process, learn how long each stage is taking, and determine where exactly the build is failing.
+As best practice build the code using IDE and test it locally. Then push the code to SVN like git and initiate build process using pipelines. Once build is successful, tag the images and store it in container registry either private or public. 
+
+https://opensource.com/article/20/5/cicd-best-practices",checked
+Ensures a bug free artefact before deployment. ,"As best practice build the code using IDE and test it locally. Then push the code to SVN like git and initiate build process using pipelines. Once build is successful, tag the images and store it in container registry either private or public. 
+Also include test automation tools for unit testing as part of pipeline. 
+
+https://www.magalix.com/blog/create-a-ci/cd-pipeline-with-kubernetes-and-jenkins
+",checked
+Tag images in accordance with application builds,"Tag images which follow the below best practices. 
+- It allows us to deploy the same tag on different environments with a run task.
+- It helps us keep track when an image was created and what build it belongs to.
+- Through the build number, we can find the commit information and map all together as needed, nice for troubleshooting.
+- It allows us to use the same docker repo per project.
+- It is nice to know when we created the image from the tag itself.
+
+
+https://kubernetes.io/docs/concepts/containers/images/",checked
+Build only Once and deploy on any environment,"One of the fundamental principles of Continuous Delivery is Build Binaries Only Once. Subsequent deployments, testing and releases should be never attempt to build the binary artifacts again, instead reusing the already built binary
+
+
+https://docs.openshift.com/container-platform/3.3/dev_guide/application_lifecycle/promoting_applications.html
+
+https://www.openshift.com/blog/build-once-deploy-anywhere",checked
+Integrate pipelines with secure Image Registry ,"Push / Pull images from Private registry should have security in forced using keys, passwords, secrets etc. 
+
+https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/",checked
+Maintain last few required tags in Image registry for application rollback.,"Store last few required tags to make application rollback possible. Also don't tag images as ""latest"" as it can hold unused blobs to the image registry storage. 
+
+https://medium.com/ibm-cloud-paks-help-and-guidance-from-ibm-cloud/optimize-docker-private-registry-storage-by-removing-unused-docker-tags-41d057ca7523",checked
+Expose metrics for deployed software / components,"Application monitoring is critically important to ensure your application is always available and working correctly. Effective application monitoring continuously assesses the state of the application and the underlying infrastructure by gathering granular data about the application and metrics related to operating systems, like CPU and memory use and storage consumption.
+
+https://developer.ibm.com/technologies/containers/tutorials/monitoring-kubernetes-prometheus/",checked
+Define scrape policy in services,"The Prometheus capabilities include the following requirements and assumptions:
+- Only services or pods with a specified annotation are scraped as prometheus.io/scrape: true.
+- The default path for the metrics is /metrics but you can change it with the annotation prometheus.io/path.
+- The default port for pods can be anything, but you can adjust it with prometheus.io/port.
+- 
+https://developer.ibm.com/technologies/containers/tutorials/monitoring-kubernetes-prometheus/",checked
+Expose metrics on a separate port other than application listening port. ,"It is a best practice to expose metrics on a separate port (that is not exposed via Ingress) than the application server itself. Exposing /metrics to the ""world"" is not exactly acceptable for a production server.
+
+https://developer.ibm.com/technologies/containers/tutorials/monitoring-kubernetes-prometheus/",checked
+Implement persistent volume and claims for application data / logs.,"Define persistence volume and claims for storing persistent data and application logs. 
+
+https://kubernetes.io/docs/concepts/storage/persistent-volumes/",checked
+Implement secrets for accessing sensitive data within the application,"How your applications access secret credentials across your application and to and from the cluster.  
+Secrets are required to access external services. 
+
+Don't keep sensitive data such as passwords inside pod configs, store these as secrets
+
+https://kubernetes.io/docs/concepts/configuration/secret/",checked
+Create ingress for applications which require external access. All other services can access each other using Service FQDN.,"Ingress is a Kubernetes resource that encapsulates a collection of rules and configuration for routing external HTTP(S) traffic to internal services.
+
+https://kubernetes.io/docs/concepts/configuration/secret/
+",checked
+Follow 12 factors for cloud native application development and deployment. ,"Follow 12 factors for cloud native application development and deployment. 
+
+https://kubernetes.io/docs/concepts/configuration/secret/",checked
+Create  Liveness probes for deployment / pods / statefulsets ,"The kubelet uses liveness probes to know when to restart a container. Liveness probes values aren't the same as the Readiness 
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/",checked
+Create Readiness probes for deployment / pods / statefulsets,"The kubelet uses readiness probes to know when a container is ready to start accepting traffic. The Readiness probes are independent.
+
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/",checked
+Build the smallest image possible,"Building a smaller image offers advantages such as faster upload and download times, which is especially important for the cold start time of a pod in Kubernetes: the smaller the image, the faster the node can download it. However, building a small image can be difficult because you might inadvertently include build dependencies or unoptimized layers in your final image.
+
+https://cloud.google.com/solutions/best-practices-for-building-containers",checked
+Avoid Pods being placed into a single node ,"Expose application to multiple nodes and select those using nodeselector. Avoid placing all pods in a single node to avoid single point of failure.
+
+https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",checked
+Run more than one replica for your Deployment ,"Create replicasets and run multiple pods of your applications on separate nodes. 
+
+https://kubernetes.io/docs/concepts/workloads/pods/disruptions/",checked
+"Resources have label based on business, deployment, selector etc. ","Labels are key/value pairs that are attached to objects, such as pods. Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system. 
+
+https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/",checked
+Use sidecars or Persistence volume to store application data /logs.,"You can use a sidecar container in one of the following ways:
+- The sidecar container streams application logs to its own stdout.
+- The sidecar container runs a logging agent, which is configured to pick up logs from an application container.
+https://kubernetes.io/docs/concepts/cluster-administration/logging/
+
+",checked
+The application / container logs should write to stdout and stderr.,"Everything a containerized application writes to stdout and stderr is handled and redirected somewhere by a container engine. For example, the Docker container engine redirects those two streams to a logging driver, which is configured in Kubernetes to write to a file in json format.
+
+https://kubernetes.io/docs/concepts/cluster-administration/logging/",checked
+Use config maps to store application configurations and environment variables,"ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. 
+
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/",checked
+Use init containers to ensure application has all dependencies in place.,"A Pod can have multiple containers running apps within it, but it can also have one or more init containers, which are run before the app containers are started.
+Init containers are exactly like regular containers, except:
+- Init containers always run to completion.
+- Each init container must complete successfully before the next one starts.
+https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
+
+",checked
+Use jobs to accomplish a task in a pod ,"A Job creates one or more Pods and ensures that a specified number of them successfully terminate. As pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete. Deleting a Job will clean up the Pods it created.
+
+https://kubernetes.io/docs/concepts/workloads/controllers/job/
+",checked
+Use cronjob to accomplish scheduled tasks in a pod,"CronJobs are useful for creating periodic and recurring tasks, like running backups or sending emails. CronJobs can also schedule individual tasks for a specific time, such as scheduling a Job for when your cluster is likely to be idle.
+
+
+https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/",checked
