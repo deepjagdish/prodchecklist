@@ -1,4 +1,4 @@
-Production Readiness Checklist and Best Practices for IBM Cloud Private and Red Hat OpenShift Platform  
+##Production Readiness Checklist and Best Practices for IBM Cloud Private and Red Hat OpenShift Platform  
  
 
 Kubernetes is stepping stone for organization’s cloud native journey. Building a highly available, scalable, resilient and secured Kubernetes environment with common services such as resource management, monitoring, logging, and alerting would be primary focus for Kubernetes administrators and DevOps Architects.  
